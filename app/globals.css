@@ -13,6 +13,7 @@
 }
 
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body { margin: 0; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
@@ -59,6 +60,7 @@ button { border-radius: 0; }
   top: calc(50% - 23.55vw);
   transform-origin: center;
 }
+.hero-mark-scroll { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .nalt-mark { display: block; width: 100%; height: 100%; overflow: visible; color: var(--orange); }
 .mark-fill { fill: currentColor; }
 .mark-outline { fill: none; stroke: currentColor; stroke-width: 1.4; opacity: 0; }
@@ -81,6 +83,8 @@ button { border-radius: 0; }
 .services { margin: 0 0 20px; font-size: 9px; letter-spacing: 0.07em; }
 .description { font-size: clamp(15px, 1.1vw, 19px); line-height: 1.5; letter-spacing: -0.015em; color: var(--muted); margin: 0 0 28px; }
 .work-cta { display: inline-flex; align-items: center; justify-content: space-between; gap: 42px; min-height: 42px; padding: 0 0 12px; border: 0; border-bottom: 1px solid #827d76; background: transparent; color: var(--foreground); opacity: 1; }
+.work-cta:hover { border-bottom-color: var(--foreground); }
+.nav-item[href]:hover { color: var(--muted); }
 .cta-arrow { font-family: Arial, sans-serif; font-size: 20px; line-height: 1; }
 .global-metadata { position: absolute; z-index: 2; bottom: 110px; right: var(--gutter); text-align: right; color: var(--foreground); }
 .global-label { display: block; font-size: 9px; }
@@ -102,9 +106,9 @@ button { border-radius: 0; }
 .marker-sw { left: calc(50% - 220px); top: calc(50% + 150px); }
 .marker-se { left: calc(50% + 215px); top: calc(50% + 150px); }
 
-.mark-ghost { position: absolute; z-index: 1; left: 50%; top: 50%; width: var(--intro-mark-width, 160px); aspect-ratio: 663 / 481; translate: -50% -50%; opacity: 0; pointer-events: none; }
+.mark-ghost { position: absolute; z-index: 1; left: var(--intro-anchor-x, 50%); top: var(--intro-anchor-y, 50%); width: var(--intro-mark-width, 160px); aspect-ratio: 663 / 481; translate: -50% -50%; opacity: 0; pointer-events: none; }
 .mark-ghost .mark-outline { opacity: 1; stroke-width: 3; }
-.identity-fragments { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; }
+.identity-fragments { position: absolute; left: var(--intro-anchor-x, 50%); top: var(--intro-anchor-y, 50%); width: 0; height: 0; z-index: 1; pointer-events: none; opacity: 0; transform-origin: 0 0; }
 .letter-mask { position: absolute; top: calc(50% - var(--intro-mark-width, 160px) * 0.363); height: calc(var(--intro-mark-width, 160px) * 0.726); overflow: hidden; }
 .intro-letter { width: 100%; height: 100%; background-repeat: no-repeat; background-size: 100% 100%; }
 .letter-n-mask { width: calc(var(--intro-mark-width, 160px) * 0.79); right: calc(50% + var(--intro-mark-width, 160px) * 0.65); }
@@ -199,6 +203,7 @@ button { border-radius: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .intro-pending .hero-mark, .intro-pending .interface-reveal, .intro-pending .content-reveal { opacity: 1; }
   .intro-pending .headline-line { transform: none; }
   .coordinate-system, .identity-fragments, .mark-ghost, .scan-line, .skip-intro { display: none !important; }

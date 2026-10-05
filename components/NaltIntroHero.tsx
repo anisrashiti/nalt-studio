@@ -19,7 +19,6 @@ export function NaltIntroHero() {
   }, []);
 
   return (
-    <main id="main">
       <section ref={scene} className="intro-hero" aria-labelledby="hero-heading" data-intro-state="pending">
         <div className="coordinate-system" aria-hidden="true">
           <div className="coordinate-grid" />
@@ -38,7 +37,9 @@ export function NaltIntroHero() {
 
         <div className="mark-ghost ghost-one" aria-hidden="true"><NaltMark outline /></div>
         <div className="mark-ghost ghost-two" aria-hidden="true"><NaltMark outline /></div>
-        <div className="hero-mark" aria-hidden="true"><NaltMark /></div>
+        <div className="hero-mark-scroll" aria-hidden="true">
+          <div className="hero-mark"><NaltMark /></div>
+        </div>
         <div className="scan-line" aria-hidden="true" />
 
         <Navigation />
@@ -53,16 +54,16 @@ export function NaltIntroHero() {
             <p className="services mono content-reveal">STRATEGY / DESIGN / ENGINEERING</p>
             <p className="description content-reveal">We design and build digital systems<br className="desktop-break" /> for ambitious companies.</p>
             <div className="content-reveal">
-              <button className="work-cta mono" type="button" disabled title="Selected work coming soon">
+              <a className="work-cta mono" href="#work">
                 SEE OUR WORK<span className="cta-arrow" aria-hidden="true">→</span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
 
         <div className="global-metadata interface-reveal mono">
           <span className="global-label">[ GLOBAL ]</span>
-          <span className="studio-label">PRODUCT<br />STUDIO</span>
+          <span className="studio-label">SOFTWARE<br />DEVELOPMENT</span>
         </div>
         <div className="viewport-metadata interface-reveal mono">
           <span>PRISHTINA, KOSOVO</span>
@@ -72,6 +73,5 @@ export function NaltIntroHero() {
           SKIP INTRO<span aria-hidden="true">↗</span>
         </button>
       </section>
-    </main>
   );
 }

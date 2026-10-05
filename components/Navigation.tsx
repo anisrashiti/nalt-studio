@@ -38,7 +38,9 @@ export function Navigation() {
       </button>
       <nav id="primary-navigation" aria-label="Primary" className="nav-items mono" data-open={open}>
         {items.map((item) => (
-          <span key={item} className="nav-item" aria-disabled="true" title="Coming soon">{item}</span>
+          item === "WORK"
+            ? <a key={item} className="nav-item" href="#work" onClick={() => setOpen(false)}>{item}</a>
+            : <span key={item} className="nav-item" aria-disabled="true" title="Coming soon">{item}</span>
         ))}
       </nav>
     </header>
