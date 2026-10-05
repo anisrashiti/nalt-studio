@@ -59,12 +59,20 @@ Sections should share one identity while changing visual pace:
 
 - **Hero:** cinematic and expressive.
 - **Selected Work:** visual, interactive, and immersive.
-- **Capabilities, later:** clean and technical.
+- **Capabilities:** one evolving digital system, expressive typography with precise structure.
 - **Experimental section, later:** bold and proprietary.
 - **About, later:** calmer and human.
 - **Final CTA, later:** iconic and a strong finish.
 
-These future directions are design references, not authorization to build later sections. The current homepage ends after **Intro → Hero → Selected Work**, with **exactly four horizontal project rows**. Capabilities, Experimental NALT, About, a footer/final CTA, and project detail pages remain outside this iteration.
+These future directions are design references, not authorization to build later sections. The current homepage ends after **Intro → Hero → Selected Work → Capabilities**, with **exactly four horizontal project rows and four capabilities**. Manifesto, Experimental NALT, About, Process, a footer/final CTA, and project detail pages remain outside this iteration.
+
+## Capabilities: one system, four forms
+
+Websites, E-commerce, Digital Products, and Custom Platforms are four states of one NALT design and engineering system. A vertical registration spine continues from the last Work divider. Restrained orange marks its scroll progress, current node, and one small system signal; titles remain warm off-white.
+
+Compose the stages with deliberate typographic variation on one underlying grid. The same three desktop SVG primitives evolve continuously: layered interface planes become commerce modules, rounded component states, then connected platform layers. Transforms, shared geometry, and overlapping detail changes create continuity. Keep native scrolling with a light CSS sticky visual and minimal ScrollTrigger usage. This is neither service cards nor a generic process infographic.
+
+Tablet and mobile use a clear left spine with inline visuals below readable title, copy, and tags. Reduced motion and no JavaScript show one resolved static visual per capability with all content available. The SVGs are decorative; all meaningful capability information lives in semantic HTML.
 
 ## Avoid
 

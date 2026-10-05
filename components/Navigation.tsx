@@ -38,8 +38,8 @@ export function Navigation() {
       </button>
       <nav id="primary-navigation" aria-label="Primary" className="nav-items mono" data-open={open}>
         {items.map((item) => (
-          item === "WORK"
-            ? <a key={item} className="nav-item" href="#work" onClick={() => setOpen(false)}>{item}</a>
+          item === "WORK" || item === "CAPABILITIES"
+            ? <a key={item} className="nav-item" href={item === "WORK" ? "#work" : "#capabilities"} onClick={() => setOpen(false)}>{item}</a>
             : <span key={item} className="nav-item" aria-disabled="true" title="Coming soon">{item}</span>
         ))}
       </nav>

@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#080808" };
 
-// Runs before the first paint. With JavaScript disabled, the complete hero stays visible.
-const prepareIntro = `if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro-pending');`;
+// Runs before the first paint. Without JavaScript, the hero and each static system remain visible.
+const prepareIntro = `document.documentElement.classList.add('capabilities-enhanced'); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro-pending');`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

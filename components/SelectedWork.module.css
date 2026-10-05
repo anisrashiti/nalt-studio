@@ -2,8 +2,21 @@
   position: relative;
   background: var(--background);
   color: var(--foreground);
-  padding: clamp(82px, 9.5vw, 176px) var(--gutter) clamp(72px, 8vw, 144px);
+  padding: clamp(82px, 9.5vw, 176px) var(--gutter) 0;
   scroll-margin-top: 32px;
+}
+
+/* The last Work rule turns into the Capabilities registration spine. */
+.section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--gutter) + 16px);
+  width: 1px;
+  height: 38px;
+  background: var(--foreground);
+  opacity: 0.2;
+  pointer-events: none;
 }
 
 .sectionHeader {
@@ -86,6 +99,7 @@
 }
 
 @media (max-width: 900px) {
+  .section::after { height: 34px; }
   .section { padding-top: 76px; scroll-margin-top: 20px; }
   .sectionHeader { padding-bottom: 30px; }
   .sectionLabel { font-size: 11px; }
@@ -100,6 +114,10 @@
   .row[data-active="true"] .preview { display: block; margin-bottom: 28px; }
   .pendingLabel { font-size: 8px; }
   .contentStatus { margin-top: 23px; font-size: 7px; }
+}
+
+@media (max-width: 767px) {
+  .section::after { left: calc(var(--gutter) + 6px); }
 }
 
 @media (max-width: 374px) {

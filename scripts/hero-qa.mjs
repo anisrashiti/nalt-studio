@@ -144,6 +144,7 @@ try {
   assert.equal(await desktop.locator(".studio-label").innerText(), "SOFTWARE\nDEVELOPMENT");
   assert.equal(await desktop.locator(".work-cta").getAttribute("href"), "#work");
   assert.equal(await desktop.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "WORK", exact: true }).getAttribute("href"), "#work");
+  assert.equal(await desktop.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "CAPABILITIES", exact: true }).getAttribute("href"), "#capabilities");
   record("desktop choreography / massive NALT / directional exits / headline overlap / same SVG", { opening: desktopOpening });
 
   await desktop.mouse.move(720, 450);
@@ -274,7 +275,7 @@ try {
     assert(layout.lines.every((line) => line.visible && line.textWidth <= layout.heading.width + 1), `Headline clipped at ${width}x${height}`);
     assert(layout.cta.bottom + 12 < layout.metadata.y, `CTA collides with metadata at ${width}x${height}`);
     assert(layout.decorationVisibility.every((opacity) => opacity === 0), "Intro decoration remains visible after resolution");
-    assert.equal(layout.sectionCount, 2, "Homepage must end after hero and Selected Work");
+    assert.equal(layout.sectionCount, 3, "Homepage must end after hero, Selected Work, and Capabilities");
     assert.equal(layout.rowCount, 4);
     assert.equal(layout.metadataOverOrange, false, `Supporting copy or metadata is over orange at ${width}x${height}`);
     await page.locator("#work").scrollIntoViewIfNeeded();

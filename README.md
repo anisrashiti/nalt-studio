@@ -1,6 +1,6 @@
-# NALT Studio — Intro → Hero → Selected Work
+# NALT Studio — Intro → Hero → Selected Work → Capabilities
 
-This iteration extends the existing Next.js application. The homepage contains the opening, the hero, and exactly four horizontal Selected Work rows. Capabilities, Experimental NALT, About, a footer/final CTA, and project detail pages are outside this iteration.
+This iteration extends the existing Next.js application with one connected Capabilities section after the opening, hero, and exactly four horizontal Selected Work rows. The homepage stops after Websites, E-commerce, Digital Products, and Custom Platforms. Manifesto, Experimental NALT, About, Process, a footer/final CTA, and project detail pages are outside this iteration.
 
 Read [docs/visual-identity.md](docs/visual-identity.md) before making future design decisions. NALT Studio is a software development company; its identity combines Technical Craft with dominant Bold Experimental expression.
 
@@ -23,6 +23,7 @@ In another terminal, run `npm.cmd run qa` against that preview with the installe
 ```powershell
 $env:NALT_QA_URL = "http://localhost:3400"
 npm.cmd run qa
+node scripts/capabilities-qa.mjs
 ```
 
 ## Opening choreography
@@ -55,7 +56,7 @@ After LIVE, mouse movement on a fine-pointer, non-touch desktop moves the A by a
 
 Scrolling remains native. A single hero ScrollTrigger moves the headline upward slightly, drifts the A farther right and upward, and reduces the prominence of supporting metadata. A separate, one-shot Selected Work ScrollTrigger reveals its label, count, horizontal rules, and rows. There is no pinning or scroll interception. Reduced motion bypasses these animated scroll treatments. GSAP media contexts, resize observation, pointer listeners, and interaction tweens are cleaned up on unmount.
 
-`WORK` in navigation and `SEE OUR WORK` now link to the real `#work` section. Capabilities, About, and Contact remain inactive labels because their destinations have not been built.
+`WORK` in navigation and `SEE OUR WORK` link to `#work`. `CAPABILITIES` now links to the real `#capabilities` section and closes the mobile menu. About and Contact remain inactive labels because their destinations have not been built.
 
 ## Selected Work
 
@@ -69,6 +70,25 @@ Without a real `href`, rows are semantic disclosure buttons with `aria-expanded`
 
 Adding an approved real `href` changes the row into a semantic link. The routing structure supports first-tap preview and second-tap navigation on touch without adding any project pages now. When real images are supplied, the existing `next/image` branch uses responsive sizes and meaningful alt text; current placeholders add no raster image downloads.
 
+## Capabilities
+
+`CapabilitiesSystem` maps the four entries in `lib/data/capabilities.ts` into semantic `CapabilityStage` articles. Each has one concise sentence and a short tag list. The label is `03 / WHAT WE BUILD`; there is no separate giant Services headline. The last Work rule turns into the Capabilities spine, with no added empty inter-section gap.
+
+On desktop at 1100px and above, four 80svh stages (580px minimum) share a right-hand CSS sticky visual. Titles vary in indentation and line breaks on a consistent grid. One unpinned ScrollTrigger measures the first and last registration nodes against 46% of the viewport. The nearest measured node determines the active stage; finite reversible tweens raise its title and resolve its supporting copy and tags while inactive text remains readable. The orange spine fill tracks native scroll continuously and reverses when scrolling back.
+
+`CapabilityVisual` uses the same three framed SVG primitives throughout the desktop sequence. Their shared configuration also renders the four static versions:
+
+- **Websites:** offset flat interface planes, with the forward plane resolving its content hierarchy.
+- **E-commerce:** three separated slots, connected transaction paths, and a small advancing orange signal.
+- **Digital Products:** the frames round and align into three component states, with related inner rings and state marks.
+- **Custom Platforms:** the states become a vertically integrated stack with branching registration points.
+
+Each transition transforms those continuing units rather than replacing or cross-fading whole SVGs. Internal details overlap briefly as the geometry changes. There is no pinning, scroll interception, snapping, hover requirement, idle animation, WebGL, canvas, or new animation dependency. No optional pointer effect was added to this primarily scroll-driven section.
+
+Below 1100px, each visual lives below its capability text in the natural page flow. A short assembly response accompanies active-stage changes; mobile does not use sticky behavior or cross-stage morphing. Reduced motion and no JavaScript keep all four resolved inline visuals and text available. Decorative SVGs are `aria-hidden`; the headings, sentences, and tag lists remain semantic HTML.
+
+The existing before-paint script reserves the desktop composition through `html.capabilities-enhanced`, avoiding a switch from inline to sticky layout after hydration. `gsap.matchMedia` owns all timelines and the one trigger. Cleanup also disconnects resize/intersection observers, clears the finite refresh timer, and guards the font-ready callback. A resize observer refreshes measurements when a preceding Work touch disclosure changes the page height.
+
 ## Brand sources and typography
 
 Only PNG brand files were originally supplied. The existing `scripts/prepare-brand.mjs` traced the favicon silhouette into an SVG contour using source vertices and a two-source-pixel simplification tolerance (approximately 0.3% of mark width). This is a faithful PNG trace, **not the unavailable original brand SVG**. The originals remain under `public/brand/originals/`.
@@ -77,18 +97,18 @@ This iteration does not run another conversion, redraw the A, or change any bran
 
 Geist Sans remains the local display/body fallback for the Neue Montreal direction; a licensed Neue Montreal file has not been supplied. Geist Mono serves navigation, technical labels, project numbers, and metadata. Both fonts use local package assets without Google Fonts build requests. Neue Montreal is not downloaded or fabricated.
 
-## Files in this iteration
+## Files in the Capabilities iteration
 
 | Change | Files |
 | --- | --- |
-| Created: work components | `components/SelectedWork.tsx`, `components/ProjectRow.tsx`, `components/SelectedWork.module.css` |
-| Created: work animation and data | `lib/animations/selectedWork.ts`, `lib/data/projects.ts` |
-| Created: internal design reference and agent guidance | `docs/visual-identity.md`, `AGENTS.md` |
-| Modified: homepage and hero styling | `app/page.tsx`, `app/globals.css` |
-| Modified: hero, navigation, and opening | `components/NaltIntroHero.tsx`, `components/Navigation.tsx`, `lib/animations/naltIntro.ts` |
-| Modified: documentation | `README.md` |
-| Modified: browser verification | `scripts/hero-qa.mjs` |
-| Generated by the production build | `next-env.d.ts` (Next.js type imports) |
+| Created: section components and styles | `components/CapabilitiesSystem.tsx`, `components/CapabilityStage.tsx`, `components/CapabilityVisual.tsx`, `components/CapabilitiesSystem.module.css` |
+| Created: animation and data | `lib/animations/capabilitiesSystem.ts`, `lib/data/capabilities.ts` |
+| Created: capabilities browser verification | `scripts/capabilities-qa.mjs` |
+| Modified: homepage and before-paint enhancement | `app/page.tsx`, `app/layout.tsx` |
+| Modified: section connection and navigation | `components/SelectedWork.module.css`, `components/Navigation.tsx` |
+| Modified: scope and design documentation | `README.md`, `docs/visual-identity.md`, `AGENTS.md` |
+| Modified: existing hero/Work scope assertions | `scripts/hero-qa.mjs` |
+| Generated by the production build | `next-env.d.ts` (Next.js production type imports) |
 
 The existing `NaltMark`, traced geometry, brand assets, font setup, and application configuration are retained. Next.js generates `.next/` and TypeScript cache files. Browser verification writes ignored screenshots and results under `qa/`; these are not source changes.
 
@@ -102,9 +122,9 @@ npm.cmd run lint
 npm.cmd run build
 ```
 
-Then start the production preview and run `npm.cmd run qa`. Review desktop and mobile opening phases, the continuing A element, masked letter exits, overlapping hero text, clean final state, pointer limits, native scrolling into Work, exactly four rows, switching active rows, keyboard and touch disclosure, reduced motion, responsive layouts down to 320px, horizontal overflow, browser errors, and cleanup on unmount. Also confirm that no later homepage sections or project pages were added.
+Then start the production preview and run `npm.cmd run qa` followed by `node scripts/capabilities-qa.mjs`. Review desktop and mobile opening phases, the continuing A element, masked letter exits, overlapping hero text, clean final state, pointer limits, native scrolling into Work, exactly four rows, switching active rows, keyboard and touch disclosure, reduced motion, responsive layouts down to 320px, horizontal overflow, browser errors, and cleanup on unmount. Also verify all four Capabilities stages, node/progress alignment, continuous shared geometry, inline/static alternatives, and native Capabilities anchors. Confirm that no later homepage sections or project pages were added.
 
-For this iteration, TypeScript, lint, and the production build passed. Chrome production-preview QA passed **20 scenarios**, with **zero console, page, or HTTP errors**. Checks covered desktop and mobile choreography, measured 72%/86% wordmark sizing, directional exits, headline entry during expansion, SVG continuity, pointer bounds, native Work anchors, row switching, keyboard/touch interaction, reduced-motion changes, skip/resize behavior, no-JavaScript rendering, and nine responsive viewports from 320px to 1920px. Evidence is written to ignored `qa/results.json`, `qa/opening-desktop.json`, `qa/opening-mobile.json`, and screenshots under `qa/`.
+For this iteration, TypeScript, lint, and the production build passed. The latest Chrome production-preview run passed **41 browser scenarios**: all **20 existing Intro/Work scenarios** and **21 Capabilities scenarios**, with **zero console, page, or HTTP errors**. The Capabilities suite checks first-paint layout stability, exact SVG geometry against static references, continuing DOM primitives, intermediate transformations, spine endpoints, forward/reverse activation, native anchors, runtime preference/resize cleanup, desktop/tablet/mobile layouts down to 320px, reduced motion, and no JavaScript. Evidence is written to ignored `qa/results.json`, `qa/capabilities-results.json`, opening snapshots, and viewport screenshots under `qa/`.
 
 No push or hosted deployment is part of this iteration.
 
