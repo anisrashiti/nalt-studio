@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* NALT design tokens, from the Figma "NALT — System" frame.
+   The default palette, type scale and radii are cleared on purpose,
+   so a class outside these tokens produces no styles. */
+@theme {
+  --color-*: initial;
+  --color-ink: #0a0a09;
+  --color-graphite: #1b1a17;
+  --color-rule: #2b2925;
+  --color-cream: #efece5;
+  --color-stone: #8a867d;
+  --color-signal: #ff4d00;
+
+  --text-*: initial;
+  --text-title: 3rem;
+  --text-title--line-height: 3.125rem;
+  --text-title--letter-spacing: -0.02em;
+  --text-intro: 2rem;
+  --text-intro--line-height: 2.625rem;
+  --text-intro--letter-spacing: -0.01em;
+  --text-lede: 1.25rem;
+  --text-lede--line-height: 1.4;
+  --text-lede--letter-spacing: -0.005em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1rem;
+  --text-label--letter-spacing: 0.06em;
+
+  --spacing-gutter: 1.75rem;
+  --spacing-inset: 1rem;
+  --spacing-stack: 0.75rem;
+  --spacing-project: 4.5rem;
+  --spacing-nav: 8.75rem;
+  --spacing-offset: calc(var(--spacing-gutter) - var(--spacing-inset));
+
+  --radius-*: initial;
+  --radius-card: 0.5rem;
+  --radius-pill: 0.375rem;
+  --radius-logo: 0.25rem;
+  --radius-tag: 0.1875rem;
+  --radius-chip: 0.75rem;
+}
+
+@theme inline {
+  --font-*: initial;
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+@layer base {
+  /* Phones stay within the five sizes: Title drops to 32 and Intro to 20. */
+  @media (width < 48rem) {
+    :root {
+      --spacing-gutter: 1rem;
+      --spacing-inset: 0.5rem;
+      --text-title: 2rem;
+      --text-title--line-height: 2.625rem;
+      --text-title--letter-spacing: -0.01em;
+      --text-intro: 1.25rem;
+      --text-intro--line-height: 1.75rem;
+      --text-intro--letter-spacing: -0.005em;
+    }
+  }
+
+  /* Below the pinned layout, scroll targets only need to clear the nav pill. */
+  @media (width < 64rem) {
+    :root {
+      --spacing-nav: 5.5rem;
+    }
+  }
+
+  html {
+    background-color: var(--color-ink);
+    color-scheme: dark;
+  }
+
+  body {
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  /* Set by ChevronCursor, so the native cursor stays if JavaScript does not run. */
+  html[data-cursor],
+  html[data-cursor] * {
+    cursor: none !important;
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-signal);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Label / 12 Mono: clock, dates, index, tags, small links. */
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+}
+
+/* Signal rule: cream or stone at rest, orange on hover and focus. */
+@utility link-signal {
+  transition: color 150ms;
+
+  &:focus-visible {
+    color: var(--color-signal);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      color: var(--color-signal);
+    }
+  }
+}
